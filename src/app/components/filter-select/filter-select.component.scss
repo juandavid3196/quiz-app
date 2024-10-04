@@ -1,0 +1,102 @@
+
+.dropdown {
+    width: 100%;
+    position: relative;
+
+    .select {
+        height: 45px;
+        background-color: #232148;;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 0.5em;
+        padding: 0.8em 0.7em;
+        gap: 5px;
+        cursor: pointer;
+
+        .caret {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid white;
+            transition: 0.3s;
+        }
+
+        .caret-rotate {
+            transform: rotate(180deg);
+        }
+    }
+
+    .select:hover {
+       border-color: #5468ff;
+    } 
+
+    .select-clicked {
+        border:1px solid #5468ff;
+        box-shadow: 0 0 0.2em #5468ff;
+    }
+
+    .menu {
+        list-style: none;
+        padding: 0.2em 0.5em;
+        background: #232148;
+        box-shadow: 0 0.5em 1em rbg(0,0,0,0.2);
+        border-radius: 0.5em;
+        color:white;
+        position: absolute;
+        top: 2.5em;
+        left: 50%;
+        width: 100%;
+        transform: translateX(-50%);
+        opacity: 0;
+        display: none;
+        transition: 0.2s;
+        z-index: 1;
+        overflow-y: auto;
+        max-height: 150px;
+    
+        li {
+            padding:0.6em;
+            margin: 0.3em 0;
+            border-radius: 0.5em;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    
+        li:hover {
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,117,32,1) 0%, rgba(202,66,13,1) 0%, rgba(72,248,249,1) 0%, rgba(120,135,255,1) 0%, rgba(43,62,202,1) 100%);            
+            color: #232148;
+        }
+    
+        .active {
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,117,32,1) 0%, rgba(202,66,13,1) 0%, rgba(72,248,249,1) 0%, rgba(120,135,255,1) 0%, rgba(43,62,202,1) 100%);            
+            color: #232148;
+        }
+    }
+    
+    .menu-open {
+        display: block;
+        opacity: 1;
+    }
+
+    .menu::-webkit-scrollbar {
+        width: 7.5px;
+        background-color: #181532;
+     }
+    
+    .menu::-webkit-scrollbar-thumb {
+        background-color: #5468ff;
+        border-radius: 3px;
+     }
+}
+
+.dropdown * {
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+
+
+

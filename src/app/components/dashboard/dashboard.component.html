@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="question-container">
+        <div class="q-top">
+            <div class="q-icon">
+                <img src="../../../assets/icons/idea-icon.svg" alt="">
+                Brilliant
+            </div>
+            <div class="q-timer" [style.color]="setColor(second)">{{second >= 10 ? second : '0'+second}}</div>
+            <div class="progress-bar" [style.width.%]="progress"></div>
+        </div>
+        <div class="q-main">
+            <div class="q-structure">
+                <span class="q-number">3</span>
+                <span class="q-text">question-text</span>
+            </div>
+            <div class="answer-container">
+                <div class="answer-box"> A. answer text</div>
+                <div class="answer-box">B. answer text</div>
+                <div class="answer-box">C. answer text</div>
+                <div class="answer-box">D. answer text</div>
+            </div>
+        </div>
+        <div class="q-bottom">
+            <div class="q-count">3 of 6 Questions</div>
+            <button class="btn-next" (click)="nextQuestion()">Next</button>
+        </div>
+    </div>
+</div>

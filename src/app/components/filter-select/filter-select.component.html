@@ -1,0 +1,9 @@
+<div class="dropdown">
+    <div class="select {{select_click ? 'select-clicked' : ''}}" (click)="toggleSelect()">
+        <span class="selected">{{selectedOption ? selectedOption : ''}}</span>
+        <div class="caret {{caret_rotate ? 'caret-rotate' : ''}}"></div>
+    </div>
+    <ul class="menu {{select_click ? 'menu-open' : ''}}" *ngIf="options.length > 0" >
+        <li (click)="handleOption(option)" *ngFor="let option of options" >{{option}}</li>
+    </ul>
+</div>

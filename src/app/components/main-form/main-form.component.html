@@ -1,0 +1,19 @@
+<div class="container">
+   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="field">
+            <span class="label">Number of Questions</span>
+            <input type="text" name="number" formControlName="number">
+            <small *ngIf="myForm.get('number')?.errors?.['required']" class="error-message">You must set a number</small>
+            <small *ngIf="myForm.get('number')?.errors?.['pattern']"  class="error-message">value must be numeric</small>
+        </div>
+        <div class="field">
+            <span class="label">Category</span>
+            <app-filter-select [options]="categoriesArray" (optionValue)="getOption($event,'category')"></app-filter-select>
+        </div>
+        <div class="field">
+            <span class="label">Difficulty</span>
+            <app-filter-select [options]="difficultyArray" (optionValue)="getOption($event,'difficulty')"></app-filter-select>
+        </div>
+        <button type="submit" [disabled]="myForm.invalid" class="btn-submit">Let's Start</button>
+   </form>
+</div>
