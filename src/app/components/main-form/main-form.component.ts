@@ -1,6 +1,8 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterSelectComponent } from '../filter-select/filter-select.component';
+import { QuestionService } from 'src/app/services/question.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-form',
@@ -18,7 +20,10 @@ export class MainFormComponent {
 
   @ViewChildren(FilterSelectComponent) filterComponent!: QueryList<FilterSelectComponent>;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder, 
+    private questionsService : QuestionService,
+    private router: Router) {
     this.myForm = this.fb.group({
       number: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     });
@@ -76,7 +81,11 @@ export class MainFormComponent {
       ${this.difficulty ? `&difficulty=${this.getDifficulty(this.difficulty).toLowerCase()}` : ''}`)
       .then(response => response.json())
       .then(data => {
-          console.log(data);
+          
+        if(data) {
+          this.questionsService.setQuestions(data.results);
+          this.router.navigate(['/dashboard']);
+        }
           this.myForm.reset();
           this.filterComponent.forEach(child => {
             child.cleanSelectedOption();

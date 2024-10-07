@@ -1,0 +1,27 @@
+<div class="container">
+    <app-points (formClose)="openPointsSection()" *ngIf="pointsSection" ></app-points>
+    <div class="top-section">
+        <span class="user-icon">
+            <img src="../../../assets/icons/user-icon.svg" alt="">
+        </span>
+        <span class="user-name">Name</span>
+        <span class="user-score">135,678 XP</span>
+    </div>
+    <div class="table-section">
+        <div class="table-top">
+            SCORES
+        </div>
+        <div class="table-body">
+            <div class="table-row">
+                <span class="numeral">1</span>
+                <span class="user-table-icon">
+                     <img src="../../../assets/icons/user-icon.svg" alt="">
+                </span>
+                <span class="user-info">
+                     <span class="user-info-name">Name</span>
+                     <span class="user-info-score">135,678 PX</span>
+                </span>
+            </div>            
+        </div>
+    </div>
+</div>

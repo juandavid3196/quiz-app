@@ -10,19 +10,33 @@
         </div>
         <div class="q-main">
             <div class="q-structure">
-                <span class="q-number">3</span>
-                <span class="q-text">question-text</span>
+                <span class="q-number">{{questionIndex + 1}}</span>
+                <span class="q-text">{{questions[questionIndex].question}}</span>
             </div>
-            <div class="answer-container">
-                <div class="answer-box"> A. answer text</div>
-                <div class="answer-box">B. answer text</div>
-                <div class="answer-box">C. answer text</div>
-                <div class="answer-box">D. answer text</div>
+            <div class="answer-container" *ngIf="questions[questionIndex].type === 'multiple'">
+                <div class="answer-box" [ngClass]="{
+                    'correct-answer': correct && answerSelected === item,
+                    'incorrect-answer': !correct && answerSelected === item
+                  }" 
+                *ngFor="let item of mixedAnswers" 
+                (click)="verifyAnswer(item,questions[questionIndex],second)">{{item}}</div>
+            </div>
+            <div class="answer-container-boolean" *ngIf="questions[questionIndex].type  ===  'boolean'">
+                <div class="answer-boolean-box" [ngClass]="{
+                    'correct-answer': correct && answerSelected === 'True',
+                    'incorrect-answer': !correct && answerSelected === 'True'
+                  }"  
+                (click)="verifyAnswer('True',questions[questionIndex],second)">True</div>
+                <div class="answer-boolean-box" [ngClass]="{
+                    'correct-answer': correct && answerSelected === 'False',
+                    'incorrect-answer': !correct && answerSelected === 'False'
+                  }"  
+                (click)="verifyAnswer('False',questions[questionIndex],second)">False</div>
             </div>
         </div>
         <div class="q-bottom">
-            <div class="q-count">3 of 6 Questions</div>
-            <button class="btn-next" (click)="nextQuestion()">Next</button>
+            <div class="q-count">{{questionIndex +1 }} of {{questions.length}} Questions</div>
+            <button class="btn-next" [disabled]="blockedBtn" (click)="nextQuestion()">{{questionIndex + 1 === questions.length ? 'Finish': 'Next'}}</button>
         </div>
     </div>
 </div>

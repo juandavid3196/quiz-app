@@ -1,0 +1,116 @@
+.container {
+    height: calc(100vh - 40px);
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    background-color: #171531;
+    flex-direction: column;
+    gap: 50px;
+
+    .top-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .user-icon {
+            height: 120px;
+            width: 120px;
+            border-radius: 100%;
+            background-color: #232148;
+            
+
+            img{ 
+                height: inherit;
+                width: inherit;
+            }
+        }
+
+        .user-name {
+             font-weight: 500;
+             font-size: 25px;
+             letter-spacing: 0.5px;
+             color: white;
+             line-height: 1;
+        }
+
+        .user-score {
+            font-size: 18px;
+            letter-spacing: 0.7px;
+            color: #9493a0;
+            line-height: 1;
+        }
+    }
+
+    .table-section {
+        width: 60%;
+        height: auto;
+
+        .table-top {
+            height: 40px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #232148;
+            color: #2addd7;
+            margin-bottom: 15px;
+        }
+
+        .table-body {
+            border-radius: 10px;
+            background-color: #232148;
+            height: auto;
+            gap: 5px;
+            padding: 10px 0;
+
+            .table-row {
+                display: flex;
+                padding: 10px 40px;
+                align-items: center;
+                gap: 25px;
+
+                .numeral {
+                    color: white;
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+                .user-table-icon {
+                    height: 45px;
+                    width: 45px;
+                    border-radius: 50%;
+
+                    img {
+                        height: inherit;
+                        width: inherit;
+                    }
+                }
+
+                .user-info {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+
+                    .user-info-name {
+                        font-size: 17px;
+                        letter-spacing: 0.5px;
+                        color: white;
+                        font-weight: 500;
+                        line-height: 1;
+                    }
+
+                    .user-info-score {
+                        font-size: 15px;
+                        letter-spacing: 0.7px;
+                        color: #9493a0;
+                        font-weight: 500;
+                        line-height: 1;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -3,8 +3,8 @@
         <div class="field">
             <span class="label">Number of Questions</span>
             <input type="text" name="number" formControlName="number">
-            <small *ngIf="myForm.get('number')?.errors?.['required']" class="error-message">You must set a number</small>
-            <small *ngIf="myForm.get('number')?.errors?.['pattern']"  class="error-message">value must be numeric</small>
+            <small *ngIf="myForm.get('number')?.errors?.['required'] && myForm.get('number')?.dirty" class="error-message">You must set a number</small>
+            <small *ngIf="myForm.get('number')?.errors?.['pattern'] && myForm.get('number')?.dirty"  class="error-message">value must be numeric</small>
         </div>
         <div class="field">
             <span class="label">Category</span>

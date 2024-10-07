@@ -1,0 +1,18 @@
+<div class="point-container {{close ? 'close' : '' }}">
+    <div class="point-box {{close ? 'close' : '' }}">
+        <img src="../../../assets/icons/close-icon.svg" class="close-icon" alt=""  (click)="onClose()" >
+        <div class="points-container">
+            <span class="check-circle"><img src="../../../assets/icons/check-icon.svg" alt=""> </span>
+            <span class="score"> +{{score}} PX</span>
+            <span class="percentage">{{getPercentage()}}%</span>
+            <span class="total">{{correctQuestionsCount}} of {{questionsCount}}</span>
+        </div>
+        <div class="message-container">
+            <span class="title">You are awesome!</span>
+            <span class="support-message">
+                Congratulations on your score, you're doing amazing!
+            </span>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,184 @@
+.point-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba($color: #000000, $alpha: 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+	animation: fadeIn 0.5s ease forwards;
+    backdrop-filter: blur(8px);
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+
+
+    .point-box {
+        width: 70%;
+        height: 90%;
+        border-radius: 10px;
+        background-color: #181532;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 35px;
+        overflow: auto;
+        opacity: 0;
+		transition: opacity 0.5s ease-in-out;
+		animation: fadeIn 0.5s ease forwards;
+        position: relative;
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+        .close-icon {
+            position: absolute;
+            height: 25px;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .close-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .points-container {
+            height: 190px;
+            width: 190px;
+            border-radius: 50%;
+            border: 15px solid #28dbd8;
+            box-shadow: 0px 0px 15px #28dbd8;
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+
+
+            .check-circle {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                position: absolute;
+                background-color: #28dbd8;
+                box-shadow: 0px 0px 15px #28dbd8;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                top: -32px;
+                left: 70px;
+
+                img {
+                    height: 20px;
+                }
+            }
+
+            .percentage {
+                font-weight: 500;
+                letter-spacing: 1px;
+                font-size: 45px;
+                color:white;
+                line-height: 1;
+            }
+
+            .total {
+                color: gray;
+                font-size: 20px;
+                letter-spacing: 0.5px;
+            }
+
+            .score {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50px;
+                padding: 7px 27px;
+                font-size: 26px;
+                color: #5368fd;
+                box-shadow: 0px 0px 10px #19bdba;
+                background-color: #5368fd;
+                letter-spacing: 0.5px;
+                color: white;
+                bottom: -25px;
+            }
+
+        }
+
+        .message-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            .title {
+                font-size: 19px;
+                letter-spacing: 0.5px;
+                color: white;
+                font-weight: 600;
+            }
+
+            .support-message {
+                color: rgb(211, 211, 211);
+                font-size: 16px;
+                letter-spacing: 0.5px;
+            }
+        }
+
+       
+        }
+        .point-box.close {
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+            animation: fadeoff 0.5s ease forwards;
+    
+            @keyframes fadeoff {
+                from {
+                    opacity: 1;
+                }
+    
+                to {
+                    opacity: 0;
+                }
+            }
+        }
+    
+    }
+    
+    .point-container.close {
+    
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+        animation: fadeoff 0.5s ease forwards;
+    
+        @keyframes fadeoff {
+            from {
+                opacity: 1;
+            }
+    
+            to {
+                opacity: 0;
+    
+            }
+        }
+    }
