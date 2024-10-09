@@ -63,9 +63,10 @@
         .table-body {
             border-radius: 10px;
             background-color: #232148;
-            height: auto;
+            height: 150px;
             gap: 5px;
             padding: 10px 0;
+            overflow-y: auto;
 
             .table-row {
                 display: flex;
@@ -111,6 +112,16 @@
                     }
                 }
             }
+        }
+
+        .table-body::-webkit-scrollbar {
+            width: 7.5px;
+            background-color: #444089;
+        }
+
+        .table-body::-webkit-scrollbar-thumb {
+            background-color: #171531;
+            border-radius: 3px;
         }
     }
 }

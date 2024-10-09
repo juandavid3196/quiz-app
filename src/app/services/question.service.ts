@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class QuestionService {
   questions : any[] = [];
   overallScore : any = {};
+  matchSettings : any = {};
 
   constructor() { }
 
@@ -25,5 +26,13 @@ export class QuestionService {
     return this.overallScore;
   }
 
-  
+  setMatchSettings(settins: any) : void {
+    this.matchSettings = settins;
+  }
+
+  getMatchSettings() : any {
+    return this.matchSettings;
+  }
+
+
 }

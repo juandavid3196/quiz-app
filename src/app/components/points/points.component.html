@@ -1,7 +1,7 @@
 <div class="point-container {{close ? 'close' : '' }}">
     <div class="point-box {{close ? 'close' : '' }}">
         <img src="../../../assets/icons/close-icon.svg" class="close-icon" alt=""  (click)="onClose()" >
-        <div class="points-container">
+        <div class="points-container" >
             <span class="check-circle"><img src="../../../assets/icons/check-icon.svg" alt=""> </span>
             <span class="score"> +{{score}} PX</span>
             <span class="percentage">{{getPercentage()}}%</span>

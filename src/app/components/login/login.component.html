@@ -1,12 +1,12 @@
 <div class="container">
-    <div *ngIf="showLogin; else signupTemplate" class="form-container">
+    <div *ngIf="showLogin" class="form-container">
         <div class="top-section">
             <span class="login-title">Log in</span>
             <span class="login-message">Enter your login details to access your account</span>
         </div>
         <form [formGroup]="loginForm" (ngSubmit)="signIn()">
             <div class="field">
-                <input type="text" name="email" formControlName="email" placeholder="Your Email">
+                <input type="text" name="email" formControlName="email" placeholder="Your Email" (blur)="cleanMessage()" >
                 <small 
                     *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.dirty"
                     class="error-message">
@@ -19,78 +19,91 @@
                 </small>
             </div>
             <div class="field">
-                <input type="password" name="password" class="input-down" formControlName="password" placeholder="Your Password">
+                <input type="password" name="password" class="input-down" formControlName="password" placeholder="Your Password" (blur)="cleanMessage()">
                 <small 
                     *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.dirty"
                     class="error-message">
                     You must write a password
                 </small>
             </div>
-            
+            <div class="login-error" *ngIf="loginError">Email or password incorrect</div>
             <button type="submit" [disabled]="loginForm.invalid" class="btn-submit">CONTINUE
                 <span class="continue-box"><img src="../../../assets/icons/right-arrow.svg" alt=""></span>
             </button>
         </form>
         <div class="bottom-section">
             <span class="register-message">Don't have an account? Create one now!</span>
-            <span class="register-link"><a href="#" (click)="toggleSignup()">SING UP</a></span>
+            <span class="register-link"><a  (click)="toggleSignup()">SING UP</a></span>
         </div>
     </div> 
-    <ng-template #signupTemplate>
-        <div class="form-container">
-            <div class="top-section">
-                <span class="login-title">New Account</span>
-                <span class="login-message"> Start by entering your email information</span>
-            </div>
-            <form [formGroup]="registerForm" (ngSubmit)="signUp()">
-                <div class="field">
-                    <input type="text" name="email" formControlName="email" placeholder="Your Email">
-                    <small 
-                        *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.dirty"
-                        class="error-message">
-                        You must write a email
-                    </small>
-                    <small 
-                        *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.dirty"
-                        class="error-message">
-                        You must write an email address
-                     </small>
-                </div>
-                <div class="field">
-                    <input type="password" name="password" class="input-center" formControlName="password" placeholder="Your Password">
-                    <small 
-                        *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.dirty"
-                        class="error-message">
-                        You must write a password
-                    </small>
-                    <small 
-                        *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.dirty"
-                        class="error-message">
-                        the password must have at least 8 characters
-                    </small>
-                </div>
-                <div class="field">
-                    <input type="password" name="confirm" class="input-down" formControlName="confirm" placeholder="Confirm Password">
-                    <small 
-                        *ngIf="registerForm.get('confirm')?.errors?.['required'] && registerForm.get('confirm')?.dirty"
-                        class="error-message">
-                        You must confirm a password
-                    </small>
-                    <small 
-                        *ngIf="registerForm.get('confirm')?.errors?.['minlength'] && registerForm.get('confirm')?.dirty"
-                        class="error-message">
-                        the password must have at least 8 characters
-                    </small>
-                </div>
-                
-                <button type="submit" [disabled]="registerForm.invalid" class="btn-submit">CONTINUE
-                    <span class="continue-box"><img src="../../../assets/icons/right-arrow.svg" alt=""></span>
-                </button>
-            </form>
-            <div class="bottom-section">
-                <span class="register-message">Already have an account?</span>
-                <span class="register-link"><a href="#" (click)="toggleSignup()">LOG IN</a></span>
-            </div>
+    <div class="form-container" *ngIf="!showLogin">
+        <div class="top-section">
+            <span class="login-title">New Account</span>
+            <span class="login-message"> Start by entering your email information</span>
         </div>
-    </ng-template>
+        <form [formGroup]="registerForm" (ngSubmit)="signUp()">
+            <div class="field">
+                <input type="text" name="email" formControlName="email" placeholder="Your Email" (blur)="cleanRegisterMessage()">
+                <small 
+                    *ngIf="registerForm.get('email')?.errors?.['required'] && registerForm.get('email')?.dirty"
+                    class="error-message">
+                    You must write a email
+                </small>
+                <small 
+                    *ngIf="registerForm.get('email')?.errors?.['email'] && registerForm.get('email')?.dirty"
+                    class="error-message">
+                    You must write an email address
+                    </small>
+            </div>
+            <div class="field">
+                <input type="text" name="nickname" formControlName="nickname" placeholder="Your Nickname or User" (blur)="cleanRegisterMessage()">
+                <small 
+                    *ngIf="registerForm.get('nickname')?.errors?.['required'] && registerForm.get('nickname')?.dirty"
+                    class="error-message">
+                    You must write a nickname or user name
+                </small>
+                <small 
+                    *ngIf="registerForm.get('nickname')?.errors?.['minlength'] && registerForm.get('password')?.dirty"
+                    class="error-message">
+                    the nickname must have at least 5 characters
+                </small>
+            </div>
+            <div class="field">
+                <input type="password" name="password" class="input-center" formControlName="password" placeholder="Your Password" (blur)="cleanRegisterMessage()">
+                <small 
+                    *ngIf="registerForm.get('password')?.errors?.['required'] && registerForm.get('password')?.dirty"
+                    class="error-message">
+                    You must write a password
+                </small>
+                <small 
+                    *ngIf="registerForm.get('password')?.errors?.['minlength'] && registerForm.get('password')?.dirty"
+                    class="error-message">
+                    the password must have at least 8 characters
+                </small>
+            </div>
+            <div class="field">
+                <input type="password" name="confirm" class="input-down" formControlName="confirm" placeholder="Confirm Password" (blur)="cleanRegisterMessage()">
+                <small 
+                    *ngIf="registerForm.get('confirm')?.errors?.['required'] && registerForm.get('confirm')?.dirty"
+                    class="error-message">
+                    You must confirm your password
+                </small>
+                <small 
+                    *ngIf="registerForm.get('confirm')?.errors?.['minlength'] && registerForm.get('confirm')?.dirty"
+                    class="error-message">
+                    the password must have at least 8 characters
+                </small>
+            </div>
+            <div class="login-error" *ngIf="singUpError">This email address already has an account</div>
+            <div class="login-error" *ngIf="passwordError">Both password must be equal</div>
+            <button type="submit" [disabled]="registerForm.invalid" class="btn-submit">CONTINUE
+                <span class="continue-box"><img src="../../../assets/icons/right-arrow.svg" alt=""></span>
+            </button>
+        </form>
+        <div class="bottom-section">
+            <span class="register-message">Already have an account?</span>
+            <span class="register-link"><a (click)="toggleSignup()">LOG IN</a></span>
+        </div>
+    </div>
+   
 </div>

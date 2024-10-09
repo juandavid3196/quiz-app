@@ -17,6 +17,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 import { environment } from '../../src/app/environments/environment';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { environment } from '../../src/app/environments/environment';
     RankingComponent,
     PointsComponent,
     LoginComponent,
+    SpinnerComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

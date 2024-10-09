@@ -7,7 +7,11 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+  constructor(
+    private afAuth: AngularFireAuth, 
+    private router: Router,
+    
+  ) {}
 
   // Registro de usuario
   signUp(email: string, password: string) {
@@ -30,4 +34,5 @@ export class AuthService {
   getUser() {
     return this.afAuth.authState;
   }
+
 }

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatchService } from 'src/app/services/match.service';
 import { QuestionService } from 'src/app/services/question.service';
+import { TimeService } from 'src/app/services/time.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +12,13 @@ import { QuestionService } from 'src/app/services/question.service';
 })
 export class DashboardComponent {
 
-  constructor(private questionService : QuestionService , private router : Router ){ }
+  constructor(
+    private questionService : QuestionService , 
+    private router : Router,
+    private userService: UserService,
+    private matchService : MatchService,
+    private timeService : TimeService
+  ){ }
   progress : number =0 ;
   second : number = 60;
   questions : any[] = []; 
@@ -20,25 +29,34 @@ export class DashboardComponent {
   mixedAnswers : string[] = [];
   blockedBtn : boolean = false;
   intervalId: any = null;
+  timerIntervalId: any = null;
   correctQuestionsCount : number = 0;
+  overallTime : number = 0;
+  userInfo : any = {};
+  loading : boolean = false;
 
 ngOnInit() : void {
- this.questions = this.questionService.getQuestions();
+  this.getUserById();
+  this.questions = this.questionService.getQuestions();
  if(this.questions){
    this.mixedAnswers =  this.getAnswers(this.questions[this.questionIndex]);
    this.startTimer();
+   this.timeService.startTimer()
  }
 }  
 
 nextQuestion() : void {
   if(this.questionIndex + 2 > this.questions.length){
+
+    const time  = this.timeService.stopTimer();
     const matchInfo : any = {
       score: this.overallScore,
       totalQuestions : this.questions.length,
-      correctQuestions : this.correctQuestionsCount
+      correctQuestions : this.correctQuestionsCount,
+      time : time
     }
     this.questionService.setScore(matchInfo);
-    this.router.navigate(['/ranking']);
+    this.saveMatchData(matchInfo);
   }else {
     this.blockedBtn =  false;
     this.startTimer();
@@ -112,21 +130,11 @@ verifyAnswer(answer:string , question: any, time:number) : void {
     this.correctQuestionsCount += 1;
     this.calculateScore(question,time);
   }
-  if(this.questionIndex + 2 > this.questions.length){
-    const matchInfo : any = {
-      score: this.overallScore,
-      totalQuestions : this.questions.length,
-      correctQuestions : this.correctQuestionsCount
-    }
-    this.questionService.setScore(matchInfo);
-    setTimeout(()=>{
-      this.router.navigate(['/ranking']);
-    },1000)
-  }else{
-    setTimeout(()=> {
-      this.nextQuestion();
-    },1000)
-  } 
+  
+  setTimeout(()=> {
+    this.nextQuestion();
+  },500)
+
 }
 
  calculateScore(question:any,time:number) : void {
@@ -154,5 +162,53 @@ verifyAnswer(answer:string , question: any, time:number) : void {
   let previousScore =  this.overallScore;
   this.overallScore =  Math.round(scoreFinal) + previousScore;
 }
+
+async saveMatchData(matchData: any): Promise<any> {
+  this.loading = true;  
+
+  const MatchSetting = this.questionService.getMatchSettings();
+  const userId = localStorage.getItem('userId');
+
+  const match = {
+    userId: userId,
+    score: matchData.score,
+    totalQuestions: matchData.totalQuestions,
+    correctAnswers: matchData.correctQuestions,
+    difficulty: MatchSetting.difficulty ? MatchSetting.difficulty : 'any',
+    category: MatchSetting.category ? MatchSetting.category : 'any',
+    duration: matchData.time,
+  };
+
+  try {
+    await this.matchService.createMatch(match);
+
+    if (this.userInfo) {
+      const updatedScore =   (this.userInfo.score) ?  this.userInfo.score +  matchData.score : matchData.score;
+      await this.userService.updateUser(this.userInfo.id, { score: updatedScore });
+      this.loading = false;
+      this.router.navigate(['/ranking']);
+    }
+
+    
+  } catch (error) {
+    console.error('Error al guardar la información:', error);
+    this.loading = false; 
+  }
+}
+
+
+ getUserById() : any {
+    this.userService.getAllUsers().subscribe((users : any[]) => {
+    if (users) {
+      const id = localStorage.getItem('userId');
+      const accountInfo = users.filter((item: any) => item.userId == id);
+      if (accountInfo) {
+        this.userInfo = accountInfo[0];
+      } 
+    }
+  });
+}
+
+
 
 }

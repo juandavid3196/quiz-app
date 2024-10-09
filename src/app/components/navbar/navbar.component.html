@@ -1,0 +1,10 @@
+<div class="navbar-box">
+    <ul>
+        <li class="new-match-btn"  *ngIf="newMatchActive"  (click)="NewMatch()">New Match  
+            <span class="icon-box ">
+                <img src="../../../assets/icons/star-icon.svg" alt="">
+            </span>
+        </li>
+        <li class="close-btn" (click)="logout()">Log Out</li>
+    </ul>
+</div>

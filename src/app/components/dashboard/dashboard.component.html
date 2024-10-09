@@ -1,4 +1,5 @@
 <div class="container">
+    <app-spinner *ngIf="loading"></app-spinner>
     <div class="question-container">
         <div class="q-top">
             <div class="q-icon">
@@ -11,7 +12,7 @@
         <div class="q-main">
             <div class="q-structure">
                 <span class="q-number">{{questionIndex + 1}}</span>
-                <span class="q-text">{{questions[questionIndex].question}}</span>
+                <span class="q-text" [innerHTML]="questions[questionIndex].question"></span>
             </div>
             <div class="answer-container" *ngIf="questions[questionIndex].type === 'multiple'">
                 <div class="answer-box" [ngClass]="{

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterSelectComponent } from '../filter-select/filter-select.component';
 import { QuestionService } from 'src/app/services/question.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-main-form',
@@ -23,7 +24,9 @@ export class MainFormComponent {
   constructor(
     private fb: FormBuilder, 
     private questionsService : QuestionService,
-    private router: Router) {
+    private router: Router,
+    private authService : AuthService
+  ) {
     this.myForm = this.fb.group({
       number: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
     });
@@ -84,6 +87,10 @@ export class MainFormComponent {
           
         if(data) {
           this.questionsService.setQuestions(data.results);
+          this.questionsService.setMatchSettings({
+            category : this.category,
+            difficulty: this.difficulty
+          });
           this.router.navigate(['/dashboard']);
         }
           this.myForm.reset();
@@ -101,5 +108,8 @@ export class MainFormComponent {
       console.log('Formulario no válido');
     }
   }
+
+
+
 
 }
