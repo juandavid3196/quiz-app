@@ -38,10 +38,12 @@ export class DashboardComponent {
 ngOnInit() : void {
   this.getUserById();
   this.questions = this.questionService.getQuestions();
- if(this.questions){
+ if(this.questions.length > 0){
    this.mixedAnswers =  this.getAnswers(this.questions[this.questionIndex]);
    this.startTimer();
    this.timeService.startTimer()
+ }else {
+  this.router.navigate(['/home']);
  }
 }  
 
@@ -186,7 +188,7 @@ async saveMatchData(matchData: any): Promise<any> {
       const updatedScore =   (this.userInfo.score) ?  this.userInfo.score +  matchData.score : matchData.score;
       await this.userService.updateUser(this.userInfo.id, { score: updatedScore });
       this.loading = false;
-      this.router.navigate(['/ranking']);
+      this.router.navigate(['/ranking'],{ queryParams: { list: 'true' } });
     }
 
     

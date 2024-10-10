@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { MatchService } from 'src/app/services/match.service';
+import { ActivatedRoute } from '@angular/router';
 import { QuestionService } from 'src/app/services/question.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,21 +10,24 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RankingComponent {
 
-  overallScore : number = 0;
   pointsSection : boolean = true;
   users : any[] = [];
   accountInfo: any = {};
+  list : string  | null= '';
 
   constructor( 
-    private questionService : QuestionService,
-    private matchService: MatchService,
-    private userService : UserService
+    private route: ActivatedRoute,
+    private userService : UserService,
   ){}
 
 
   ngOnInit() : void {
-    this.overallScore =  this.questionService.getScore();
+    this.getParamValue()
     this.getUsers();
+    console.log(this.list);
+    if(this.list === null){
+      this.pointsSection =  false;
+    }
   }
 
   openPointsSection():void {
@@ -48,6 +50,15 @@ export class RankingComponent {
    sortByScoreDescending(arr: any) {
     return arr.sort((a:any, b:any) => b.score - a.score);
   }
+
+  getParamValue(): void {
+    // Captura el parámetro de consulta
+    this.route.queryParamMap.subscribe(params => {
+      this.list = params.get('list');
+      console.log(this.list);
+    });
+  }
+
 
 
 }

@@ -68,7 +68,6 @@ export class MainFormComponent {
     fetch('https://opentdb.com/api_category.php')
         .then(response => response.json())
         .then(data => {
-          console.log(data.trivia_categories);
           // You can loop through the categories and display them
           data.trivia_categories.forEach((category: { id: any; name: any; }) => {
               this.categoriesArray.push(category.name);

@@ -20,7 +20,7 @@
                     'incorrect-answer': !correct && answerSelected === item
                   }" 
                 *ngFor="let item of mixedAnswers" 
-                (click)="verifyAnswer(item,questions[questionIndex],second)">{{item}}</div>
+                (click)="verifyAnswer(item,questions[questionIndex],second)" [innerHTML]="item"></div>
             </div>
             <div class="answer-container-boolean" *ngIf="questions[questionIndex].type  ===  'boolean'">
                 <div class="answer-boolean-box" [ngClass]="{

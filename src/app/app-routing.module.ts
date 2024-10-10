@@ -5,12 +5,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RankingComponent } from './components/ranking/ranking.component';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
+import { rankingGuard } from './guards/ranking.guard';
 
 const routes: Routes = [
   {path:'', redirectTo: 'login', pathMatch: 'full'},
   {path:'login', component:LoginComponent},
   {path:'home', component:MainFormComponent,canActivate: [authGuard] },
   {path:'dashboard', component:DashboardComponent,canActivate: [authGuard]},
+  {path:'ranking/:list', component:RankingComponent,canActivate: [rankingGuard]},
   {path:'ranking', component:RankingComponent,canActivate: [authGuard]},
   { path: '**', redirectTo: 'login' }
   
